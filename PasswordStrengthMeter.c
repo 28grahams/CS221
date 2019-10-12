@@ -22,11 +22,12 @@ bool isStrongPassword(const char* username, const char* password){
 }
 
 int main(void){
-    char[] username = {""};
-    char[] password = {""};
-    printf("Enter a username\n");
-    scanf("%s", &username);
-    printf("Enter a password\n");
-    scanf("%s", &password);
+    char username[] = {" "};
+    char password[] = {" "};
+    printf("Enter username:\n");
+    scanf("%s", username);
+    printf("Enter new password:\n");
+    scanf("%s", password);
+
 }
 
