@@ -28,7 +28,7 @@ int main(void){
     scanf("%s", username);
     printf("Enter new password:\n");
     scanf("%s", password);
-    return 0;x
+    return 0;
 
 }
 
