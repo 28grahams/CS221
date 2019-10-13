@@ -8,7 +8,9 @@
 #include <string.h>
 
 bool isStrongPassword(const char* username, const char* password){
-    // if (characters =< 8)
+    unsigned long passwordLen = strlen(password);
+    int characters, uCase, lCase
+    if (characters =< 8)
 
     // if (1 uppercase)
 
@@ -19,11 +21,12 @@ bool isStrongPassword(const char* username, const char* password){
     // if (string =< 4) lowercase/uppercase/numbers
 
     // if (doesn't contain username)
+    return false;
 }
 
 int main(void){
-    char username[] = {" "};
-    char password[] = {" "};
+    char username[] = {""};
+    char password[] = {""};
     printf("Enter username:\n");
     scanf("%s", username);
     printf("Enter new password:\n");
