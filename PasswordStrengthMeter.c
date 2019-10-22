@@ -40,8 +40,11 @@ bool isStrongPassword(const char* username, const char* password){
             }
         }
     }
-    for (unsigned long i=0; i < passwordLen; i++) {
-        if(*(pwPtr3+i) >= '0' && *(pwPtr3+i) <= 'z'){
+    for (unsigned long i=0; i < passwordLen; i++) { // Validates whether special characters are contained
+        if((*(pwPtr3+i) <= 47) ||
+           (*(pwPtr3+i) >= 58 && *(pwPtr3+i) <= 64) ||
+           (*(pwPtr3+i) >= 91 && *(pwPtr3+i) <= 96) ||
+           (*(pwPtr3+i) >= 123)){
             specChar++;
         }
     }
@@ -90,63 +93,44 @@ bool isStrongPassword(const char* username, const char* password){
         success++;
     }
     if (strcmp(username, password)==0){ // Validation for password containing usernames
-        printf("[ ] Password doesn't contain username\n");
+        printf("[ ] Doesn't contain username\n");
     }
     else{
-        printf("[\xE2\x9C\x93] Password doesn't contain username \n");
+        printf("[\xE2\x9C\x93] Doesn't contain username \n");
         success++;
     }
     if (success>=6){
+        printf("Strong password!\n");
         return true;
     }
     else {
+        printf("Your password is weak. Try again!\n");
         return false;
     }
 }
-char randN(void){
-    srand(time(0));
-    char randomN = '0' + (rand() % 10);
-    return randomN;
-}
-char randUC(void){
-    srand(time(0));
-    char randomUC = 'A' + (rand() % 26);
-    return randomUC;
-}
-char randLC(void){
-    srand(time(0));
-    char randomLC = 'a' + (rand() % 26);
-    return randomLC;
-}
-int randNum(void){
-    srand(time(0));
-    int randNum = (rand() % 3);
-    return randNum;
-}
-char generateDefaultPassword(const char* username, const char* password){
+
+char generateDefaultPassword(const char* default_password, const char* username){
     char randPassword[20] = {""};
     srand(time(NULL));
-    int randLen = (rand() % 7);
+    int randLen = (rand() % 7); // For some reason this always is 15
     randLen+=8;
     for (int i=0; i<randLen; i++) {
         int randNum = (rand() % 3);
         int choice = randNum;
         if (choice == 0) {
-            char rand1 = '0' + (rand() % 10);
-            printf("%c",rand1);
+            char rand1 = '0' + (rand() % 10); //random digit
             randPassword[i] = rand1;
         }
         if (choice == 1) {
-            char rand2 = 'a' + (rand() % 26);
-            printf("%c",rand2);
+            char rand2 = 'a' + (rand() % 26); //random lowercase letter
             randPassword[i] = rand2;
         }
         if (choice == 2) {
-            char rand3 =  'A' + (rand() % 26);
-            printf("%c",rand3);
+            char rand3 =  'A' + (rand() % 26); // random uppercase letter
             randPassword[i] = rand3;
         }
     }
+    printf("%s", randPassword);
     return randPassword;
 }
 
@@ -157,7 +141,9 @@ int main(void){
     scanf("%s", username);
     printf("Enter new password:\n");
     scanf("%s", password);
-    printf("%d\n", isStrongPassword(username, password));
-    printf("s", generateDefaultPassword(username, password));
+    printf("Generating a default password. . .\n");
+    printf("Generated default password: ");
+    printf("\n", generateDefaultPassword(username, password));
+    isStrongPassword(username, password);
     return 0;
 }
